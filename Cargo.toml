@@ -1,0 +1,25 @@
+[package]
+name = "hfetch"
+version = "0.1.0"
+edition = "2021"
+authors = ["Hkmori15"]
+description = "Simple and configurable fetch written in Rust"
+repository = "https://github.com/Hkmori15/hfetch-rs"
+license = "MIT"
+keywords = ["fetch", "rust", "hfetch", "cli", "system"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+serde ={ version = "1.0.210", features = ["derive"] }
+toml = "0.8.19"
+regex = "1.11.0"
+sysinfo = "0.32.0"
+colored = "2.1.0"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+incremental = true
+codegen-units = 1
+strip = true
