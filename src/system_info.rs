@@ -88,6 +88,10 @@ impl SystemInfo {
          ("rpm -qa | wc -l", "rpm"),
          ("pacman -Q | wc -l", "pacman"),
          ("xbps-query -l | wc -l", "xbps-query"),
+         ("brew list --formula | wc -l", "brew"),
+         ("nix-env -q | wc -l", "nix-env"),
+         ("ls -d /var/db/pkg/*/* | wc -l", "portage"),
+         ("ls /var/log/packages/* | wc -l", "slackware"),
       ];
 
       let native = package_managers.iter()
@@ -154,6 +158,8 @@ impl SystemInfo {
          "sysvinit".to_string()
       } else if std::path::Path::new("/sbin/sinit").exists() {
          "sinit".to_string()
+      } else if std::path::Path::new("/sbin/launchd").exists() {
+         "launchd".to_string()
       } else {
          "Unknown".to_string()
       }
