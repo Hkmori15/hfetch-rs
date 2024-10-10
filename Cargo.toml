@@ -1,6 +1,6 @@
 [package]
 name = "hfetch"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2021"
 authors = ["Hkmori15"]
 description = "Simple and configurable fetch written in Rust"
@@ -16,6 +16,8 @@ regex = "1.11.0"
 sysinfo = "0.32.0"
 colored = "2.1.0"
 dirs = "5.0.1"
+tokio ={ version = "1.40.0", features = ["full"] }
+futures = "0.3.31"
 
 [[bin]]
 name = "hfetch"

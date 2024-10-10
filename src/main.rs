@@ -11,9 +11,10 @@ use regex::Regex;
 use system_info::SystemInfo;
 use logo::Logo;
 
-fn main() {
+#[tokio::main]
+async fn main() {
    let config = Config::load();
-   let system_info = SystemInfo::new();
+   let system_info = SystemInfo::new().await;
    let logo = Logo::load(&config);
 
    print_info(&config, &system_info, &logo);
