@@ -1,6 +1,6 @@
 [package]
 name = "hfetch"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Hkmori15"]
 description = "Simple and configurable fetch written in Rust"
@@ -15,6 +15,11 @@ toml = "0.8.19"
 regex = "1.11.0"
 sysinfo = "0.32.0"
 colored = "2.1.0"
+dirs = "5.0.1"
+
+[[bin]]
+name = "hfetch"
+path = "src/main.rs"
 
 [profile.release]
 opt-level = 3

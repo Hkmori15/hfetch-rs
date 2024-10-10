@@ -1,7 +1,9 @@
 // Not modifying this file
 use std::fs;
 use std::io::Write;
+use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
+use dirs;
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
@@ -55,12 +57,23 @@ custom_logo_color = ""
 
 impl Config {
     pub fn load() -> Self {
-      let config_path = "config.toml";
-      let config_str = match fs::read_to_string(config_path) {
+      let config_path = dirs::config_dir()
+        .map(|mut path| {
+          path.push("hfetch");
+          path.push("config.toml");
+          path
+        })
+        .unwrap_or_else(|| PathBuf::from("config.toml"));
+
+      let config_str = match fs::read_to_string(&config_path) {
           Ok(content) => content,
           Err(_) => {
             // Create the default config file if config.toml don't exists
-            let mut file = fs::File::create(config_path).expect("Failed to create config file");
+            if let Some(parent) = config_path.parent() {
+              fs::create_dir_all(parent).expect("Failed to create config directory");
+            }
+
+            let mut file = fs::File::create(&config_path).expect("Failed to create config file");
             file.write_all(DEFAULT_CONFIG.as_bytes()).expect("Failed to write default config");
             DEFAULT_CONFIG.to_string()
           }
